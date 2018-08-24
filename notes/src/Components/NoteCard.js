@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
+import { SortableElement } from "react-sortable-hoc";
 
 const NoteCard = ({ note }) => {
 	return (
-		<Link key={note._id} className="Notes" to={`/notes/${note._id}`}>
-			<div key={note._id}>
+		<Link key={note._id} to={`/notes/${note._id}`}>
+			<div className="Notes" key={note._id}>
 				<h4 className="Notes__title">
 					{note.title.length > 20
 						? note.title.substring(0, 20) + "..."
@@ -27,4 +28,4 @@ const NoteCard = ({ note }) => {
 	);
 };
 
-export default NoteCard;
+export default SortableElement(NoteCard);

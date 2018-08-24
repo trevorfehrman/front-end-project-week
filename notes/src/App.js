@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import axios from "axios";
-
+import { arrayMove } from "react-sortable-hoc";
 import Notes from "./Components/Notes";
 import Note from "./Components/Note";
 import AddNote from "./Components/AddNote";
@@ -19,6 +19,12 @@ class App extends Component {
 	state = {
 		notes: [],
 		loading: false,
+	};
+
+	onSortEnd = ({ oldIndex, newIndex }) => {
+		this.setState({
+			notes: arrayMove(this.state.notes, oldIndex, newIndex),
+		});
 	};
 
 	componentDidMount() {
@@ -74,7 +80,12 @@ class App extends Component {
 				<Route
 					exact
 					path="/notes"
-					render={() => <Notes notes={this.state.notes} />}
+					render={() => (
+						<Notes
+							onSortEnd={this.onSortEnd}
+							notes={this.state.notes}
+						/>
+					)}
 				/>
 				<Route
 					exact

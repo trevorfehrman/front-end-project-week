@@ -1,5 +1,6 @@
 import React from "react";
 import fuzzysearch from "fuzzysearch";
+import { SortableContainer } from "react-sortable-hoc";
 
 import NoteCard from "./NoteCard";
 import Tags from "./Tags";
@@ -23,11 +24,11 @@ class Notes extends React.Component {
 					.filter(note =>
 						fuzzysearch(this.state.searchTerm, note.title),
 					)
-					.map(note => (
-						<NoteCard note={note} />
+					.map((note, index) => (
+						<NoteCard index={index} note={note} />
 					))}
 			</div>
 		);
 	}
 }
-export default Notes;
+export default SortableContainer(Notes);
